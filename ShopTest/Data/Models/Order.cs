@@ -38,5 +38,10 @@ namespace ShopTest.Data.Models
         
         [BindNever]
         public List<OrderDetail> orderDerails { get; set; }
+
+        [BindNever]
+        public int userID { get; set; }
+
+
     }
 }

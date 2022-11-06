@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ShopTest.Data;
 using ShopTest.Data.Interfaces;
@@ -10,13 +11,17 @@ namespace ShopTest.Controllers
     {
         private readonly IAllOrders allOrders;
         private readonly ShopCart shopCart;
+        private readonly Auth _auth;
 
-        public OrderController(IAllOrders allOrders, ShopCart shopCart)
+        public OrderController(IAllOrders allOrders, ShopCart shopCart, Auth auth)
         {
             this.allOrders = allOrders;
             this.shopCart = shopCart;
+            this._auth = auth;
         }
 
+
+        [Authorize]
         public IActionResult Checkout()
         {
             return View();
@@ -34,6 +39,8 @@ namespace ShopTest.Controllers
             
             if (ModelState.IsValid)
             {
+                var ord = order;
+                ord.userID = _auth.getIDbyLogin(User.Identity.Name);
                 allOrders.createOrder(order);
                 return RedirectToAction("Complete");
             }

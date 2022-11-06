@@ -11,10 +11,6 @@ namespace ShopTest.Data
         public static void Initial(AppDBContent content)
         {
 
-
-
-
-
             if (!content.Categories.Any())
             {
                 content.Categories.AddRange(Categories.Select(c => c.Value));
@@ -22,13 +18,20 @@ namespace ShopTest.Data
 
             if (!content.Cars.Any())
             {
-                content.AddRange(
+                content.Cars.AddRange(
                     new Car { name = "Tesla", shortDesc = "", longDesc = "", img = "/img/tesla.jpg", price = 45000, isFavourite = true, available = true, Category = Categories["Электро"] },
                     new Car { name = "Nissan", shortDesc = "", longDesc = "", img = "/img/Nissan.jpg", price = 15000, isFavourite = true, available = true, Category = Categories["ДВС"] },
                     new Car { name = "BMW", shortDesc = "", longDesc = "", img = "/img/BMW.jpg", price = 55000, isFavourite = true, available = true, Category = Categories["ДВС"] },
                     new Car { name = "Lada", shortDesc = "", longDesc = "", img = "/img/Lada.jpg", price = 60000, isFavourite = true, available = true, Category = Categories["ДВС"] }
                     );
 
+            }
+
+            if (!content.Users.Any())
+            {
+                content.Users.AddRange(
+                    new UserShop { login = "admin", password = "admin" }
+                );
             }
 
 

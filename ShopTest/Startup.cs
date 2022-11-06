@@ -13,11 +13,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ShopTest.Data.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 //https://itproger.com/course/asp-net/10
-//Личный кабинет с пользователями
+//https://metanit.com/sharp/aspnet5/
+/*
+TO DO
+* Личный кабинет
+    + данные доставки по умолчанию
+    + информация о заказах
 
+* 3 вида ролей 
+    + Админ - добавляет менеджеров
+    + Менеджер - добавляет и удаляет позиции
+    + Покупатель - создаёт заказы
 
+* Добавить слайдер на главную страницу
+
+ */
 
 namespace ShopTest
 {
@@ -41,9 +54,16 @@ namespace ShopTest
             services.AddTransient<IAllCars, CarRepository>();
             services.AddTransient<ICarsCategory, CategoryRepository>();
             services.AddTransient<IAllOrders, OrderRepository>();
+            services.AddTransient<IAllLogin, LoginRepositoy>();
+            services.AddTransient<IAllUser, UserRepository>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sp => ShopCart.getCart(sp));
+            services.AddScoped(sp => Auth.getAuth(sp));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Login/Logining");
+            services.AddAuthorization();
+
 
             services.AddMemoryCache();
             services.AddSession();
@@ -57,7 +77,8 @@ namespace ShopTest
             app.UseStaticFiles();
             app.UseSession();
             //app.UseMvcWithDefaultRoute();
-
+            app.UseAuthentication();   
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");

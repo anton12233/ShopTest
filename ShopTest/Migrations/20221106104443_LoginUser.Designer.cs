@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopTest.Data;
 
 namespace ShopTest.Migrations
 {
     [DbContext(typeof(AppDBContent))]
-    partial class AppDBContentModelSnapshot : ModelSnapshot
+    [Migration("20221106104443_LoginUser")]
+    partial class LoginUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,7 +137,7 @@ namespace ShopTest.Migrations
                     b.ToTable("ShopCartItem");
                 });
 
-            modelBuilder.Entity("ShopTest.Data.Models.UserShop", b =>
+            modelBuilder.Entity("ShopTest.Data.Models.User", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -144,8 +146,6 @@ namespace ShopTest.Migrations
                     b.Property<int>("accessLevel");
 
                     b.Property<string>("adress");
-
-                    b.Property<string>("email");
 
                     b.Property<string>("login");
 

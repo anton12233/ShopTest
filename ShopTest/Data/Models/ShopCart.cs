@@ -44,6 +44,8 @@ namespace ShopTest.Data.Models
             appDBContent.SaveChanges();
         }
 
+        
+
         public List<ShopCartItem> getShopItems()
         {
 

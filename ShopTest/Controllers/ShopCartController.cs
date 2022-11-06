@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShopTest.Data.Interfaces;
 using ShopTest.Data.Models;
 using ShopTest.Data.Repository;
@@ -18,12 +21,10 @@ namespace ShopTest.Controllers
             _shopCart = shopCart;
         }
 
-
         public ViewResult Index()
         {
             var items = _shopCart.getShopItems();
             _shopCart.listShopItims = items;
-
 
             var obj = new ShopCartViewModel
             {
@@ -40,6 +41,7 @@ namespace ShopTest.Controllers
             {
                 _shopCart.AddToCart(item);
             }
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Index");
         }

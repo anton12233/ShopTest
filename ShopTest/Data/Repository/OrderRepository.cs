@@ -1,4 +1,5 @@
-﻿using ShopTest.Data.Interfaces;
+﻿using Microsoft.AspNetCore.Http;
+using ShopTest.Data.Interfaces;
 using ShopTest.Data.Models;
 using System;
 
@@ -18,6 +19,9 @@ namespace ShopTest.Data.Repository
         public void createOrder(Order order)
         {
             order.orderTime = DateTime.Now;
+
+           
+            
             content.Order.Add(order);
 
             var items = shopCart.listShopItims;

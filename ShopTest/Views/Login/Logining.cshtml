@@ -1,0 +1,23 @@
+﻿@model Login
+
+<div class="row">
+    <h3>Авторизация</h3>
+
+    <form asp-action="Logining" method="post" class="form-horizontal">
+        <div class="form-group"> 
+            <label asp-for="loginName"></label>
+            <div class="col-md-5">
+                <input asp-for="loginName" class="form-control"/>
+                <span asp-validation-for="loginName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label asp-for="password"></label>
+            <div class="col-md-5">
+                <input asp-for="password" class="form-control"/>
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+        </div>  
+        <input class="btn btn-success" type="submit" value="Авторизоваться" />
+    </form>
+</div>
